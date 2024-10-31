@@ -12,7 +12,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Ignition-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: true
+    isActive: false
   },
   {
     id: "2",
@@ -21,7 +21,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Ignition-Kenya-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: true
+    isActive: false
   },
   {
     id: "3",
@@ -48,7 +48,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Uni-Malaysia-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: true
+    isActive: true 
   },
   {
     id: "6",
@@ -146,7 +146,7 @@ export default function Home() {
               { step: "3", title: "Make Your Contribution", description: "Support projects with your contribution and track their progress" },
               { step: "4", title: "Watch It Grow", description: "Keep track of your contributions and watch them grow" }
             ].map((step, index) => (
-              <div key={index} className="flex items-start space-x-6 bg-transparent p-6 rounded-lg border-2 border-[#143728] rounded-[16px]">
+              <div key={index} className="flex items-start space-x-6 bg-transparent p-6 border-2 border-[#143728] rounded-[16px]">
                 <div className="w-12 h-12 bg-green-900 text-white rounded-full flex items-center justify-center font-bold text-lg">
                   {step.step}
                 </div>
