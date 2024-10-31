@@ -27,7 +27,7 @@ export default function ContributeForm({ onContribution }: any) {
         onChange={(e) => setChain(e.target.value)}
         required
       >
-        <option value="">Select Chain</option>npm install ethers wagmi
+        <option value="">Select Chain</option>
         <option value="Ethereum">Ethereum</option>
         <option value="Solana">Solana</option>
         {/* Add more chains as needed */}
