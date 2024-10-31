@@ -10,30 +10,45 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProjectCardProps {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  ownerName: string;
-  ownerImage: string;
+  project?: {
+    id: string;
+    title: string;
+    description: string;
+    imageUrl: string;
+    ownerName: string;
+    ownerImage: string;
+    isActive: boolean;
+  };
+  // For direct props
+  id?: string;
+  title?: string;
+  description?: string;
+  imageUrl?: string;
+  ownerName?: string;
+  ownerImage?: string;
+  isActive?: boolean;
 }
 
-export default function ProjectCard({
-  id,
-  title,
-  description,
-  imageUrl,
-  ownerName,
-  ownerImage,
-}: ProjectCardProps) {
+export default function ProjectCard(props: ProjectCardProps) {
+  // Use either nested project object or direct props
+  const {
+    id,
+    title,
+    description,
+    imageUrl,
+    ownerName,
+    ownerImage,
+    isActive
+  } = props.project || props;
+
   return (
     <Link href={`/projects/${id}`}>
       <Card className="group cursor-pointer overflow-hidden hover:shadow-lg transition-shadow duration-300 rounded-[18px] h-[450px] flex flex-col">
         {/* Project Image */}
         <div className="relative w-full h-[200px]">
           <Image
-            src={imageUrl}
-            alt={title}
+            src={imageUrl || '/placeholder-image.jpg'}
+            alt={title || 'Project image'}
             fill
             className="object-cover w-full h-full"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -61,8 +76,8 @@ export default function ProjectCard({
         <CardFooter className="flex items-center space-x-3 mt-auto">
           <div className="relative h-8 w-8">
             <Image
-              src={ownerImage}
-              alt={ownerName}
+              src={ownerImage || '/placeholder-avatar.jpg'}
+              alt={ownerName || 'Project owner'}
               fill
               className="rounded-full object-cover"
               sizes="32px"

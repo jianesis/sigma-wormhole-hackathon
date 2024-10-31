@@ -3,6 +3,7 @@ import useCrowdfundingData from "./hooks/useCrowdfundingData";
 import ContributionCard from "./components/ContributionCard";
 import ContributeForm from "./components/ContributionForm";
 import ProjectCard from "./components/projects/ProjectCard";
+import ProjectList from "./components/projects/projects-list";
 
 const sampleProjects = [
   {
@@ -12,6 +13,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Ignition-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
+    isActive: true
   },
   {
     id: "2",
@@ -20,6 +22,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Ignition-Kenya-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
+    isActive: true
   },
   {
     id: "3",
@@ -28,6 +31,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Ghana-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
+    isActive: false
   },
   {
     id: "4",
@@ -36,6 +40,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Kenya-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
+    isActive: true
   },
   {
     id: "5",
@@ -44,6 +49,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Uni-Malaysia-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
+    isActive: true
   },
   {
     id: "6",
@@ -52,6 +58,7 @@ const sampleProjects = [
     imageUrl: "/images/project6.jpg",
     ownerName: "Emma Davis",
     ownerImage: "/images/avatar6.jpg",
+    isActive: true
   },
 ];
 
@@ -114,37 +121,31 @@ export default function Home() {
       <section className="w-full my-16">
         <div className="relative flex items-center justify-center px-[50px]">
           <div className="flex items-center w-full">
-            {/* Left line separator */}
             <div className="flex-1 h-[2px] bg-[#143728]"></div>
-            
-            {/* Added specific spacing */}
             <div className="mx-[33px]">
-              <h2 className="text-4xl md:text-5xl font-bold text-center font-inter text-green-900">Live Projects</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-center font-inter text-green-900">Projects</h2>
             </div>
-            
-            {/* Right line separator */}
             <div className="flex-1 h-[2px] bg-[#143728]"></div>
           </div>
         </div>
         
-        <div className="mt-12 px-[50px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sampleProjects.map((project) => (
-              <ProjectCard key={project.id} {...project} />
-            ))}
-          </div>
-        </div>
+        <ProjectList projects={sampleProjects} />
       </section>
 
       <section className="w-full bg-[#F5F5F5] py-16">
-        <div className="max-w-4xl mx-auto px-4">
+        {/* Top line separator */}
+        <div className="px-[50px]">
+          <div className="h-[2px] bg-[#143728]"></div>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 my-[50px]">
           <h2 className="text-3xl font-bold mb-8 text-center text-green-900">How To Use</h2>
           <div className="space-y-8">
             {[
-              { step: "1", title: "Connect Your Wallet", description: "Choose your preferred blockchain wallet to get started" },
-              { step: "2", title: "Choose Your Chain", description: "Select the blockchain network you want to contribute to" },
+              { step: "1", title: "Connect Your Wallet", description: "Choose your preferred crypto wallets to get started" },
+              { step: "2", title: "Choose Your Chain", description: "Swap your own tokens to the supported chains" },
               { step: "3", title: "Make Your Contribution", description: "Support projects with your contribution and track their progress" },
-              { step: "4", title: "Watch It Grow", description: "Monitor your investments and see your contributions flourish" }
+              { step: "4", title: "Watch It Grow", description: "Keep track of your contributions and watch them grow" }
             ].map((step, index) => (
               <div key={index} className="flex items-start space-x-4 bg-transparent p-6 rounded-lg">
                 <div className="w-10 h-10 bg-green-900 text-white rounded-full flex items-center justify-center font-bold">
@@ -157,6 +158,11 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Bottom line separator */}
+        <div className="px-[50px]">
+          <div className="h-[2px] bg-[#143728]"></div>
         </div>
       </section>
 

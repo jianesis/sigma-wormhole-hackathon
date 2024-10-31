@@ -8,14 +8,14 @@ const ProjectList = ({ projects }: any) => {
 
   return (
     <div className="max-w-7xl mx-auto py-8">
-      <h2 className="text-2xl font-bold mb-4">Active Projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <h2 className="text-2xl font-bold mb-4 text-green-900">Live Projects</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-20">
         {activeProjects.map((project: any) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
 
-      <h2 className="text-2xl font-bold mt-8 mb-4">Upcoming Projects</h2>
+      <h2 className="text-2xl font-bold mb-4 text-green-900">Past Projects</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {upcomingProjects.map((project: any) => (
           <ProjectCard key={project.id} project={project} />
