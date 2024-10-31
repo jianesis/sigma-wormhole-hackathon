@@ -25,7 +25,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Wormhole Launchpad",
+  title: "Treetherium Launchpad",
   description: "Multichain launchpad",
 };
 

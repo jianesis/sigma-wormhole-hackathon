@@ -70,7 +70,7 @@ export default function Home() {
         
         <div className="text-center p-8 relative z-10">
           <h1 className="text-6xl font-bold mb-4 text-white font-inter tracking-tight text-shadow">
-            Welcome to Bamboo$prout
+            Welcome to Treetherium Launchpad
           </h1>
           <p className="text-xl text-white font-inter text-shadow-sm">
             The eco-friendly multi-chain launchpad
@@ -85,7 +85,7 @@ export default function Home() {
               From Greenbacks to Green Growth
             </h1>
             <p className="text-lg text-gray-700 leading-relaxed max-w-2xl font-inter">
-              Bamboo$prout delivers multichain support, enabling green initiatives and eco-conscious projects to thrive across the blockchain ecosystem.
+              Treetherium Launchpad delivers multichain support, enabling green initiatives and eco-conscious projects to thrive across the blockchain ecosystem.
             </p>
           </div>
 
@@ -136,9 +136,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full bg-green-50 py-16">
+      <section className="w-full bg-[#F5F5F5] py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">How It Works</h2>
+          <h2 className="text-3xl font-bold mb-8 text-center text-green-900">How To Use</h2>
           <div className="space-y-8">
             {[
               { step: "1", title: "Connect Your Wallet", description: "Choose your preferred blockchain wallet to get started" },
@@ -146,13 +146,13 @@ export default function Home() {
               { step: "3", title: "Make Your Contribution", description: "Support projects with your contribution and track their progress" },
               { step: "4", title: "Watch It Grow", description: "Monitor your investments and see your contributions flourish" }
             ].map((step, index) => (
-              <div key={index} className="flex items-start space-x-4 bg-white p-6 rounded-lg shadow-md">
-                <div className="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold">
+              <div key={index} className="flex items-start space-x-4 bg-transparent p-6 rounded-lg">
+                <div className="w-10 h-10 bg-green-900 text-white rounded-full flex items-center justify-center font-bold">
                   {step.step}
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 text-green-900">{step.title}</h3>
+                  <p className="text-green-900">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -162,9 +162,9 @@ export default function Home() {
 
       <ContributeForm onContribution={refreshData} />
 
-      <footer className="w-full bg-[#A3A830] text-white py-12 mt-16">
+      <footer className="w-full bg-[#4F3738] text-white py-12 mt-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">Join the Bamboo$prout Community</h2>
+          <h2 className="text-2xl font-bold mb-4">Join the TreeTherium Community</h2>
           <p className="mb-8">Stay updated with our latest projects and announcements</p>
           <div className="flex justify-center space-x-6">
             {['Twitter', 'Discord', 'Telegram'].map((platform) => (
