@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, CSSProperties } from "react";
+import { useState, CSSProperties, useEffect } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { injected } from "@wagmi/core";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
-import { useEffect } from "react";
 import Badges from './Badges';
 
 export default function Navbar() {
@@ -13,6 +12,7 @@ export default function Navbar() {
   const { connect } = useConnect();
   const { publicKey, connect: connectSolana, wallets, select } = useWallet();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   let solAddr = null;
   if (publicKey) {
@@ -35,6 +35,16 @@ export default function Navbar() {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollThreshold = 100;
+      setIsScrolled(window.scrollY > scrollThreshold);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -88,22 +98,30 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-[#A3A830] shadow-lg w-full">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-[#A3A830] shadow-lg' 
+        : 'bg-gradient-to-b from-black/40 to-transparent'
+    }`}>
       <div className="max-w-full px-4 py-3 flex justify-between items-center">
         <div className="flex items-center flex-shrink-0">
           <img src="/favicon.ico" alt="Favicon" className="h-8 w-8 mr-2" />
           <div className="text-[#F5F5F5] text-2xl font-bold">Bamboo$prout</div>
         </div>
-        <div className="flex items-center gap-4 flex-grow justify-end pr-8">
-          <div className="relative">
+        <div className={`flex items-center gap-4 flex-grow transition-all duration-300 ${
+          isScrolled ? 'justify-end' : 'justify-end pr-30'
+        }`}>
+          <div className={`relative transition-all duration-300 ${
+            isScrolled ? 'transform translate-x-0' : 'transform translate-x-[180px]'
+          }`}>
             <button
               id="wallet-button"
               onClick={toggleDropdown}
-              className="text-[#F5F5F5] bg-green-900 hover:bg-green-800 rounded-full w-[240px] h-[60px] flex items-center justify-center text-center"
+              className="text-[#F5F5F5] bg-[#1B4332] hover:bg-[#143728] rounded-full w-[240px] h-[60px] flex items-center justify-center text-center font-inter font-extrabold text-lg uppercase tracking-tight"
               aria-haspopup="true"
               aria-expanded={dropdownOpen}
             >
-              Select Wallet
+              SELECT WALLET
             </button>
             {dropdownOpen && (
               <div
@@ -144,7 +162,13 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          <Badges />
+          <div className={`transition-all duration-300 ${
+            isScrolled 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 -translate-y-4 pointer-events-none'
+          }`}>
+            <Badges />
+          </div>
         </div>
       </div>
     </nav>
