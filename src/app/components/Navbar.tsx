@@ -109,7 +109,7 @@ export default function Navbar() {
               <div
                 id="wallet-dropdown"
                 className="absolute left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-lg rounded-md w-[240px] p-2"
-                style={{ borderRadius: '20px' }}
+                style={{ borderRadius: '20px', zIndex: 9999 }}
                 role="menu"
                 aria-label="Wallet selection"
               >
