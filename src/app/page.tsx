@@ -1,7 +1,7 @@
 "use client";
 import useCrowdfundingData from "./hooks/useCrowdfundingData";
-import ContributionCard from "./components/ContributionCard";
-import ContributeForm from "./components/ContributionForm";
+import ContributionCard from "./components/projects/ContributionCard";
+import ContributeForm from "./components/projects/ContributionForm";
 import ProjectList from "./components/projects/projects-list";
 import { motion } from "framer-motion";
 
@@ -49,7 +49,7 @@ const sampleProjects = [
     imageUrl: "/images/TT-Uni-Malaysia-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: true 
+    isActive: true
   },
   {
     id: "6",
@@ -74,7 +74,7 @@ export default function Home() {
           backgroundPosition: 'center',
         }}>
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/50"></div>
-        
+
         <div className="text-center p-8 relative z-10">
           <h1 className="text-6xl font-bold mb-4 text-white font-inter tracking-tight text-shadow">
             Welcome to Treetherium Launchpad
@@ -99,18 +99,18 @@ export default function Home() {
           <div className="hidden md:block w-[2px] bg-green-900 self-stretch mx-2"></div>
 
           <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-2">
-            <ContributionCard 
+            <ContributionCard
               title="Total Funding"
               amount={totalFunding}
               isTotal={true}
             />
-            
-            <ContributionCard 
+
+            <ContributionCard
               title="Ethereum"
               amount={chainsData.find(chain => chain.name === 'Ethereum')?.contribution ?? 0}
             />
-            
-            <ContributionCard 
+
+            <ContributionCard
               title="Solana"
               amount={chainsData.find(chain => chain.name === 'Solana')?.contribution ?? 0}
             />
@@ -128,7 +128,7 @@ export default function Home() {
             <div className="flex-1 h-[2px] bg-[#143728]"></div>
           </div>
         </div>
-        
+
         <ProjectList projects={sampleProjects} />
       </section>
 
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
 
         <div className="max-w-3xl mx-auto px-4 my-[50px]">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -158,14 +158,14 @@ export default function Home() {
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   delay: index * 0.2,
                   ease: "easeOut"
                 }}
                 className="flex items-start space-x-6 bg-transparent p-6 border-2 border-[#143728] rounded-[16px]"
               >
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.1 }}
                   className="w-12 h-12 bg-green-900 text-white rounded-full flex items-center justify-center font-bold text-lg"
                 >
@@ -217,7 +217,7 @@ export default function Home() {
                 )
               }
             ].map((platform) => (
-              <a 
+              <a
                 key={platform.name}
                 href={platform.url}
                 target="_blank"
