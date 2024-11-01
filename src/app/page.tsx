@@ -3,6 +3,7 @@ import useCrowdfundingData from "./hooks/useCrowdfundingData";
 import ContributionCard from "./components/ContributionCard";
 import ContributeForm from "./components/ContributionForm";
 import ProjectList from "./components/projects/projects-list";
+import { motion } from "framer-motion";
 
 const sampleProjects = [
   {
@@ -132,13 +133,19 @@ export default function Home() {
       </section>
 
       <section className="w-full bg-[#F5F5F5] py-16">
-        {/* Top line separator */}
         <div className="px-[50px]">
           <div className="h-[2px] bg-[#143728]"></div>
         </div>
 
         <div className="max-w-3xl mx-auto px-4 my-[50px]">
-          <h2 className="text-3xl font-bold mb-12 text-center text-green-900">How To Use</h2>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold mb-12 text-center text-green-900"
+          >
+            How To Use
+          </motion.h2>
           <div className="space-y-8 max-w-2xl mx-auto">
             {[
               { step: "1", title: "Connect Your Wallet", description: "Choose your preferred crypto wallets to get started" },
@@ -146,15 +153,29 @@ export default function Home() {
               { step: "3", title: "Make Your Contribution", description: "Support projects with your contribution and track their progress" },
               { step: "4", title: "Watch It Grow", description: "Keep track of your contributions and watch them grow" }
             ].map((step, index) => (
-              <div key={index} className="flex items-start space-x-6 bg-transparent p-6 border-2 border-[#143728] rounded-[16px]">
-                <div className="w-12 h-12 bg-green-900 text-white rounded-full flex items-center justify-center font-bold text-lg">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.2,
+                  ease: "easeOut"
+                }}
+                className="flex items-start space-x-6 bg-transparent p-6 border-2 border-[#143728] rounded-[16px]"
+              >
+                <motion.div 
+                  whileHover={{ scale: 1.1 }}
+                  className="w-12 h-12 bg-green-900 text-white rounded-full flex items-center justify-center font-bold text-lg"
+                >
                   {step.step}
-                </div>
+                </motion.div>
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold mb-2 text-green-900">{step.title}</h3>
                   <p className="text-green-900">{step.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

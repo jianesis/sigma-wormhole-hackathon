@@ -6,6 +6,7 @@ import { injected } from "@wagmi/core";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import Badges from './Badges';
+import Link from 'next/link';
 
 export default function Navbar() {
   const { isConnected, address } = useAccount();
@@ -105,8 +106,10 @@ export default function Navbar() {
     }`}>
       <div className="max-w-full px-4 py-3 flex justify-between items-center">
         <div className="flex items-center flex-shrink-0">
-          <img src="/favicon.ico" alt="Favicon" className="h-8 w-8 mr-2" />
-          <div className="text-[#F5F5F5] text-2xl font-bold">Treetherium Launchpad</div>
+          <Link href="/" className="flex items-center cursor-pointer">
+            <img src="/favicon.ico" alt="Favicon" className="h-8 w-8 mr-2" />
+            <div className="text-[#F5F5F5] text-2xl font-bold">Treetherium Launchpad</div>
+          </Link>
         </div>
         <div className={`flex items-center gap-4 flex-grow transition-all duration-300 ${
           isScrolled ? 'justify-end' : 'justify-end pr-30'
