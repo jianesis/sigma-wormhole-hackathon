@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { cookieToInitialState, createConfig, WagmiProvider } from "wagmi";
+import { createConfig } from "wagmi";
 import { http } from "viem";
 import { mainnet, sepolia } from "viem/chains";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
 import { SolanaProvider } from "./components/providers/solana-provider";
 import { ClusterProvider } from "./components/cluster/cluster-data-access";
 import { injected } from "@wagmi/core";
-import { headers } from "next/headers";
-import { useState } from "react";
 import { EVMProvider } from "./components/providers/evm-provider";
 
 const geistSans = localFont({
@@ -37,8 +34,6 @@ export const config = createConfig({
   },
   connectors: [injected()],
 });
-
-// const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,

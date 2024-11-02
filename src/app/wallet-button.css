@@ -1,0 +1,60 @@
+.wallet-button-wrapper,
+.wallet-adapter-dropdown,
+.wallet-adapter-button-trigger {
+  background: #2F855A !important;
+  color: #F5F5F5 !important;
+  height: 60px !important;
+  width: 100% !important;
+  border-radius: 9999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+  border: 1px solid #4F3738 !important;
+  margin-bottom: 3px !important;
+  font-family: inherit !important;
+  font-size: 1.125rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.wallet-button-wrapper:hover,
+.wallet-adapter-button:hover,
+.wallet-adapter-button:not([disabled]):hover {
+  background: #143728 !important;
+}
+
+.wallet-adapter-dropdown {
+  width: 100% !important;
+  border: none !important;
+  background: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.wallet-adapter-dropdown-list {
+  background: #000!important;
+  border-radius: 20px !important;
+  margin-top: 8px !important;
+  width: 100% !important;
+}
+
+.wallet-adapter-dropdown-list-item {
+  padding: 8px 16px !important;
+  cursor: pointer !important;
+}
+
+#wallet-dropdown {
+  width: 240px !important;
+  padding: 8px !important;
+}
+
+#wallet-dropdown > * {
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

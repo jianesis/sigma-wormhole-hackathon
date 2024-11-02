@@ -2,7 +2,7 @@ import { useAccount } from "wagmi";
 import { useWallet } from "@solana/wallet-adapter-react";
 
 export default function Badges() {
-  const { isConnected: isMetaMaskConnected } = useAccount();
+  const { isConnected: isEthereumConnected } = useAccount();
   const { connected: isSolanaConnected } = useWallet();
 
   const badgeStyle = {
@@ -27,8 +27,8 @@ export default function Badges() {
   return (
     <div className="flex">
       <div style={badgeStyle}>
-        <div style={statusDotStyle(isMetaMaskConnected)} />
-        MetaMask
+        <div style={statusDotStyle(isEthereumConnected)} />
+        Ethereum
       </div>
       <div style={badgeStyle}>
         <div style={statusDotStyle(isSolanaConnected)} />
@@ -36,4 +36,4 @@ export default function Badges() {
       </div>
     </div>
   );
-} 
+}

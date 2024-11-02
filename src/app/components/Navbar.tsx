@@ -7,6 +7,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import Badges from './Badges';
 import Link from 'next/link';
+import { WalletButton } from "./providers/solana-provider";
 
 export default function Navbar() {
   const { isConnected, address } = useAccount();
@@ -50,13 +51,13 @@ export default function Navbar() {
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
-  const handleMetaMaskConnect = async () => {
-    console.log('MetaMask connect clicked');
+  const handleEthereumConnect = async () => {
+    console.log('Ethereum connect clicked');
     try {
       await connect({ connector: injected() });
       setDropdownOpen(false);
     } catch (error) {
-      console.error("Failed to connect to MetaMask:", error);
+      console.error("Failed to connect to Ethereum:", error);
     }
   };
 
@@ -65,10 +66,10 @@ export default function Navbar() {
     console.log('Available wallets:', wallets);
     if (wallets.length > 0) {
       try {
-        const phantomWallet = wallets.find(wallet => 
+        const phantomWallet = wallets.find(wallet =>
           wallet.adapter.name === 'Phantom'
         );
-        
+
         if (phantomWallet) {
           select(phantomWallet.adapter.name);
           await connectSolana();
@@ -82,26 +83,10 @@ export default function Navbar() {
     }
   };
 
-  const buttonStyle: CSSProperties = {
-    width: '100%',
-    color: '#F5F5F5',
-    backgroundColor: '#2F855A',
-    borderRadius: '20px',
-    height: '60px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-    border: '1px solid #4F3738',
-    marginBottom: '3px',
-  };
-
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-[#A3A830] shadow-lg' 
+      isScrolled
+        ? 'bg-[#A3A830] shadow-lg'
         : 'bg-gradient-to-b from-black/40 to-transparent'
     }`}>
       <div className="max-w-full px-4 py-3 flex justify-between items-center">
@@ -111,16 +96,40 @@ export default function Navbar() {
             <div className="text-[#F5F5F5] text-2xl font-bold">Treetherium Launchpad</div>
           </Link>
         </div>
-        <div className={`flex items-center gap-4 flex-grow transition-all duration-300 ${
+        <div className={`relative flex items-center gap-4 flex-grow transition-all duration-300 ${
           isScrolled ? 'justify-end' : 'justify-end pr-30'
         }`}>
-          <div className={`relative transition-all duration-300 ${
+          <div className={`relative transition-all duration-300 flex gap-4 ${
             isScrolled ? 'transform translate-x-0' : 'transform translate-x-[180px]'
           }`}>
+            <button className="text-[#F5F5F5] bg-[#1B4332] hover:bg-[#143728] rounded-full w-[240px] h-[60px] flex items-center justify-center gap-2 text-center font-inter font-extrabold text-lg uppercase tracking-tight">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="currentColor"
+                className="w-6 h-6"
+              >
+                <title>swap-vertical</title>
+                <g id="Layer_2" data-name="Layer 2">
+                  <g id="invisible_box" data-name="invisible box">
+                    <rect width="48" height="48" fill="none"/>
+                  </g>
+                  <g id="icons_Q2" data-name="icons Q2">
+                    <g>
+                      <path d="M24.4,33.5a2.1,2.1,0,0,0,.2-2.7,1.9,1.9,0,0,0-3-.2L17,35.2V8a2,2,0,0,0-4,0V35.2L8.4,30.6a1.9,1.9,0,0,0-3,.2,2.1,2.1,0,0,0,.2,2.7l8,7.9a1.9,1.9,0,0,0,2.8,0Z" fill="white"/>
+                      <path d="M23.6,14.5a2.1,2.1,0,0,0-.2,2.7,1.9,1.9,0,0,0,3,.2L31,12.8V40a2,2,0,0,0,4,0V12.8l4.6,4.6a1.9,1.9,0,0,0,3-.2,2.1,2.1,0,0,0-.2-2.7l-8-7.9a1.9,1.9,0,0,0-2.8,0Z" fill="white"/>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              Swap Tokens
+            </button>
             <button
               id="wallet-button"
               onClick={toggleDropdown}
-              className="text-[#F5F5F5] bg-[#1B4332] hover:bg-[#143728] rounded-full w-[240px] h-[60px] flex items-center justify-center text-center font-inter font-extrabold text-lg uppercase tracking-tight"
+              className="text-[#F5F5F5] bg-[#1B4332] hover:bg-[#143728] rounded-full w-[240px] h-[60px] flex items-center justify-center gap-2 text-center font-inter font-extrabold text-lg uppercase tracking-tight"
               aria-haspopup="true"
               aria-expanded={dropdownOpen}
             >
@@ -129,16 +138,19 @@ export default function Navbar() {
             {dropdownOpen && (
               <div
                 id="wallet-dropdown"
-                className="absolute left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-lg rounded-md w-[240px] p-2"
-                style={{ borderRadius: '20px', zIndex: 9999 }}
+                className="absolute right-0 mt-2 bg-white shadow-lg w-[240px] p-2"
+                style={{
+                  borderRadius: '20px',
+                  zIndex: 9999,
+                  top: '100%',  // Position below the button
+                  marginTop: '0.5rem' // Add some spacing
+                }}
                 role="menu"
                 aria-label="Wallet selection"
               >
                 <button
-                  onClick={handleMetaMaskConnect}
-                  style={buttonStyle}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#276749')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#2F855A')}
+                  onClick={handleEthereumConnect}
+                  className="wallet-button-wrapper"
                   role="menuitem"
                   tabIndex={0}
                 >
@@ -146,28 +158,15 @@ export default function Navbar() {
                     ? address.toString().slice(0, 6) +
                       "..." +
                       address.toString().slice(-4)
-                    : "Connect Metamask"}
+                    : "Connect Ethereum"}
                 </button>
-                <button
-                  onClick={handleSolanaConnect}
-                  style={buttonStyle}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#276749')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#2F855A')}
-                  role="menuitem"
-                  tabIndex={0}
-                >
-                  {solAddr
-                    ? solAddr.toString().slice(0, 6) +
-                      "..." +
-                      solAddr.toString().slice(-4)
-                    : "Connect Solana"}
-                </button>
+                <WalletButton />
               </div>
             )}
           </div>
           <div className={`transition-all duration-300 ${
-            isScrolled 
-              ? 'opacity-100 translate-y-0' 
+            isScrolled
+              ? 'opacity-100 translate-y-0'
               : 'opacity-0 -translate-y-4 pointer-events-none'
           }`}>
             <Badges />
