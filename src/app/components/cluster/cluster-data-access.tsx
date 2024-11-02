@@ -5,6 +5,7 @@ import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import { createContext, ReactNode, useContext } from 'react'
 import toast from 'react-hot-toast'
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 
 export interface Cluster {
   name: string
@@ -93,7 +94,18 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
 }
 
 export function useCluster() {
-  return useContext(Context)
+  const network = process.env.NEXT_PUBLIC_SOLANA_NETWORK || WalletAdapterNetwork.Devnet;
+  const endpoint = process.env.NEXT_PUBLIC_SOLANA_RPC_URL || clusterApiUrl(network as WalletAdapterNetwork);
+
+  const defaultCluster = {
+    name: network,
+    endpoint: endpoint,
+  };
+
+  return {
+    cluster: defaultCluster,
+    // ... other cluster-related states and functions
+  };
 }
 
 function getClusterUrlParam(cluster: Cluster): string {

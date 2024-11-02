@@ -38,3 +38,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# solana
+NEXT_PUBLIC_SOLANA_NETWORK=devnet
+NEXT_PUBLIC_SOLANA_RPC_URL=https://api.devnet.solana.com

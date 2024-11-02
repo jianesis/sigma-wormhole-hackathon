@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, CSSProperties, useEffect } from "react";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { useState, useEffect } from "react";
+import { useAccount, useConnect } from "wagmi";
 import { injected } from "@wagmi/core";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
