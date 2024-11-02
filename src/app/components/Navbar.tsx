@@ -8,6 +8,7 @@ import { PublicKey } from "@solana/web3.js";
 import Badges from './Badges';
 import Link from 'next/link';
 import { WalletButton } from "./providers/solana-provider";
+import SwapWidget from './SwapWidget';
 
 export default function Navbar() {
   const { isConnected, address } = useAccount();
@@ -15,6 +16,7 @@ export default function Navbar() {
   const { publicKey, connect: connectSolana, wallets, select } = useWallet();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isSwapOpen, setIsSwapOpen] = useState(false);
 
   let solAddr = null;
   if (publicKey) {
@@ -81,7 +83,10 @@ export default function Navbar() {
           <div className={`relative transition-all duration-300 flex gap-4 ${
             isScrolled ? 'transform translate-x-0' : 'transform translate-x-[180px]'
           }`}>
-            <button className="text-[#F5F5F5] bg-[#1B4332] hover:bg-[#143728] rounded-full w-[240px] h-[60px] flex items-center justify-center gap-2 text-center font-inter font-extrabold text-lg uppercase tracking-tight">
+            <button
+              onClick={() => setIsSwapOpen(true)}
+              className="text-[#F5F5F5] bg-[#1B4332] hover:bg-[#143728] rounded-full w-[240px] h-[60px] flex items-center justify-center gap-2 text-center font-inter font-extrabold text-lg uppercase tracking-tight"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="48"
@@ -165,6 +170,10 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      <SwapWidget
+        isOpen={isSwapOpen}
+        onClose={() => setIsSwapOpen(false)}
+      />
     </nav>
   );
 }
