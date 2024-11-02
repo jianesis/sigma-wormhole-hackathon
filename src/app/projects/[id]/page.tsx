@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 // Define the Project type based on your data structure
 interface Project {
@@ -12,6 +13,10 @@ interface Project {
   ownerName: string;
   ownerImage: string;
   isActive: boolean;
+  fundingGoal: number;
+  currentFunding: number;
+  backers: number;
+  daysLeft: number;
 }
 
 // Import the sample projects data
@@ -23,7 +28,11 @@ const sampleProjects: Project[] = [
     imageUrl: "/images/TT-Ignition-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: false
+    isActive: false,
+    fundingGoal: 100,
+    currentFunding: 65,
+    backers: 123,
+    daysLeft: 15
   },
   {
     id: "2",
@@ -32,7 +41,11 @@ const sampleProjects: Project[] = [
     imageUrl: "/images/TT-Ignition-Kenya-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: false
+    isActive: false,
+    fundingGoal: 100,
+    currentFunding: 65,
+    backers: 123,
+    daysLeft: 15
   },
   {
     id: "3",
@@ -41,7 +54,11 @@ const sampleProjects: Project[] = [
     imageUrl: "/images/TT-Ghana-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: true
+    isActive: true,
+    fundingGoal: 100,
+    currentFunding: 65,
+    backers: 123,
+    daysLeft: 15
   },
   {
     id: "4",
@@ -50,7 +67,11 @@ const sampleProjects: Project[] = [
     imageUrl: "/images/TT-Kenya-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: true
+    isActive: true,
+    fundingGoal: 100,
+    currentFunding: 65,
+    backers: 123,
+    daysLeft: 15
   },
   {
     id: "5",
@@ -59,7 +80,11 @@ const sampleProjects: Project[] = [
     imageUrl: "/images/TT-Uni-Malaysia-Event.jpg",
     ownerName: "Frank Amptmeijer",
     ownerImage: "/images/FrankA.jpg",
-    isActive: true 
+    isActive: true,
+    fundingGoal: 100,
+    currentFunding: 65,
+    backers: 123,
+    daysLeft: 15
   },
   {
     id: "6",
@@ -68,76 +93,150 @@ const sampleProjects: Project[] = [
     imageUrl: "/images/TzuChi_PlantTree_Event.jpg",
     ownerName: "Tzu Chi Phillipines",
     ownerImage: "/images/tzu_chi_logo.jpg",
-    isActive: false
+    isActive: false,
+    fundingGoal: 100,
+    currentFunding: 65,
+    backers: 123,
+    daysLeft: 15
   },
-]; 
+];
 
-const ProjectPage = ({ params }: { params: { id: string } }) => {
-  const [project, setProject] = useState<Project | null>(null);
-
-  useEffect(() => {
-    // Find the project with matching ID
-    const foundProject = sampleProjects.find(p => p.id === params.id);
-    setProject(foundProject || null);
-  }, [params.id]);
+export default function ProjectPage({ params }: { params: { id: string } }) {
+  const project = sampleProjects.find(p => p.id === params.id);
 
   if (!project) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h1 className="text-2xl text-red-600">Project not found</h1>
-      </div>
-    );
+    return null; // This will trigger the not-found page
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] py-16 px-4">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-lg shadow-xl overflow-hidden"
-        >
-          {/* Project Image */}
-          <div className="w-full h-[400px] relative">
-            <img 
-              src={project.imageUrl} 
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute top-0 left-0 w-full h-full bg-black/30" />
-          </div>
-
-          {/* Project Details */}
-          <div className="p-8">
-            <div className="flex items-center space-x-4 mb-6">
-              <img 
-                src={project.ownerImage} 
-                alt={project.ownerName}
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <div>
-                <h2 className="text-lg font-semibold">{project.ownerName}</h2>
-                <span className={`px-3 py-1 rounded-full text-sm ${
-                  project.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                }`}>
-                  {project.isActive ? 'Active' : 'Completed'}
-                </span>
+    <div className="min-h-screen bg-[#F5F5F5]">
+      <div className="pt-25">
+        {/* Hero Section - Full Width Image */}
+        <div className="relative w-full h-[600px] mb-8">
+          <Image
+            src={project.imageUrl}
+            alt={project.title}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+            quality={100}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+            <div className="max-w-7xl mx-auto">
+              <h1 className="text-5xl font-bold mb-4">{project.title}</h1>
+              <div className="flex items-center">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                  <Image
+                    src={project.ownerImage}
+                    alt={project.ownerName}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <span className="ml-4 text-lg">{project.ownerName}</span>
               </div>
             </div>
-
-            <h1 className="text-3xl font-bold mb-4 text-green-900">{project.title}</h1>
-            <p className="text-gray-700 leading-relaxed mb-8">{project.description}</p>
-
-            {project.isActive && (
-              <button className="w-full bg-green-900 text-white py-3 rounded-lg hover:bg-green-800 transition-colors">
-                Contribute to Project
-              </button>
-            )}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Project Details */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Description Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-2xl shadow-xl p-8"
+              >
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">About the Project</h2>
+                <div className="prose max-w-none text-gray-700">
+                  <p className="text-lg leading-relaxed">{project.description}</p>
+                </div>
+              </motion.div>
+
+              {/* Gallery Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="bg-white rounded-2xl shadow-xl p-8"
+              >
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Project Gallery</h2>
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Add multiple project images here */}
+                  <div className="relative aspect-video rounded-lg overflow-hidden">
+                    <Image
+                      src={project.imageUrl}
+                      alt="Gallery 1"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  {/* Add more gallery items */}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Funding Card - Fixed on Desktop */}
+            <div className="lg:col-span-1">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="bg-white rounded-2xl shadow-xl p-8 sticky top-32"
+              >
+                <div className="space-y-6">
+                  {/* Funding Progress */}
+                  <div>
+                    <div className="flex justify-between mb-2">
+                      <span className="text-2xl font-bold text-green-900">
+                        {project.currentFunding} SOL
+                      </span>
+                      <span className="text-gray-500">
+                        of {project.fundingGoal} SOL goal
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className="bg-green-600 h-3 rounded-full"
+                        style={{
+                          width: `${(project.currentFunding / project.fundingGoal) * 100}%`
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-2 gap-4 py-4 border-y border-gray-200">
+                    <div>
+                      <p className="text-gray-500">Backers</p>
+                      <p className="text-2xl font-bold">{project.backers}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Days Left</p>
+                      <p className="text-2xl font-bold">{project.daysLeft}</p>
+                    </div>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <button className="w-full bg-[#2F855A] hover:bg-[#143728] text-white font-bold py-4 px-6 rounded-full transition-colors duration-300">
+                    Back this project
+                  </button>
+
+                  {project.isActive && (
+                    <button className="w-full border-2 border-[#2F855A] text-[#2F855A] hover:bg-[#2F855A] hover:text-white font-bold py-4 px-6 rounded-full transition-colors duration-300">
+                      Share
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
-};
-
-export default ProjectPage;
+}
