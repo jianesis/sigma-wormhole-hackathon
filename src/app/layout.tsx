@@ -9,6 +9,7 @@ import { SolanaProvider } from "./components/providers/solana-provider";
 import { ClusterProvider } from "./components/cluster/cluster-data-access";
 import { injected } from "@wagmi/core";
 import { EVMProvider } from "./components/providers/evm-provider";
+import { SwapProvider } from "./components/SwapContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -48,8 +49,10 @@ export default function RootLayout({
         <EVMProvider>
           <ClusterProvider>
             <SolanaProvider>
-              <Navbar />
-              <main className="bg-black">{children}</main>
+              <SwapProvider>
+                <Navbar />
+                <main className="bg-black">{children}</main>
+              </SwapProvider>
             </SolanaProvider>
           </ClusterProvider>
         </EVMProvider>
