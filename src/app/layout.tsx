@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { createConfig } from "wagmi";
 import { http } from "viem";
 import { mainnet, sepolia } from "viem/chains";
 import Navbar from "./components/Navbar";
 import { SolanaProvider } from "./components/providers/solana-provider";
 import { ClusterProvider } from "./components/cluster/cluster-data-access";
-import { injected } from "@wagmi/core";
 import { EVMProvider } from "./components/providers/evm-provider";
 import { SwapProvider } from "./components/SwapContext";
 
@@ -27,35 +25,25 @@ export const metadata: Metadata = {
   description: "Multichain launchpad",
 };
 
-export const config = createConfig({
-  chains: [mainnet, sepolia],
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-  connectors: [injected()],
-});
-
+// Remove or modify the config export
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <EVMProvider>
-          <ClusterProvider>
-            <SolanaProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <ClusterProvider>
+          <SolanaProvider>
+            <EVMProvider>
               <SwapProvider>
                 <Navbar />
-                <main className="bg-black">{children}</main>
+                {children}
               </SwapProvider>
-            </SolanaProvider>
-          </ClusterProvider>
-        </EVMProvider>
+            </EVMProvider>
+          </SolanaProvider>
+        </ClusterProvider>
       </body>
     </html>
   );
