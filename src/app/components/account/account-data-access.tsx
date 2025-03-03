@@ -13,8 +13,22 @@ import {
 } from "@solana/web3.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-// import { useTransactionToast } from "../ui/ui-layout";
+import { ExplorerLink } from "../cluster/cluster-ui";
 
+export function useTransactionToast() {
+  return (signature: string) => {
+    toast.success(
+      <div className={"text-center"}>
+        <div className="text-lg">Transaction sent</div>
+        <ExplorerLink
+          path={`tx/${signature}`}
+          label={"View Transaction"}
+          className="btn btn-xs btn-primary"
+        />
+      </div>
+    );
+  };
+}
 export function useGetBalance({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
 
@@ -57,7 +71,7 @@ export function useGetTokenAccounts({ address }: { address: PublicKey }) {
 
 export function useTransferSol({ address }: { address: PublicKey }) {
   const { connection } = useConnection();
-  // const transactionToast = useTransactionToast();
+  const transactionToast = useTransactionToast();
   const wallet = useWallet();
   const client = useQueryClient();
 
