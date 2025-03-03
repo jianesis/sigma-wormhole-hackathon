@@ -113,22 +113,21 @@ const sampleProjects: Project[] = [
 export default function ProjectPage({ params }: { params: { id: string } }) {
   const project = sampleProjects.find((p) => p.id === params.id);
   const [count, setCount] = useState(65);
-  const { publicKey } = useWallet(); // Get the publicKey of the connected wallet
+  const { publicKey } = useWallet();
   const [balance, setBalance] = useState<number | null>(null);
+  const { isSwapOpen, setIsSwapOpen } = useSwap();
   const connection = new Connection(
     "https://api.devnet.solana.com",
     "confirmed"
   );
 
   useEffect(() => {
-    // Fetch balance if a wallet is connected
-
     const fetchBalance = async () => {
       if (publicKey) {
         try {
           const balanceLamports = await connection.getBalance(publicKey);
           const balanceSOL = balanceLamports / LAMPORTS_PER_SOL;
-          setBalance(balanceSOL); // Convert lamports to SOL
+          setBalance(balanceSOL);
         } catch (error) {
           console.error("Error fetching balance:", error);
         }
@@ -143,9 +142,8 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   }
 
   if (!project) {
-    return null; // This will trigger the not-found page
+    return null;
   }
-  const { isSwapOpen, setIsSwapOpen } = useSwap();
 
   const handleBackProject = () => {
     if (balance && balance <= 1) {
